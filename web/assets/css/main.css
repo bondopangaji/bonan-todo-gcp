@@ -1,0 +1,61 @@
+/**
+ * Copyright (c) 2022 Bondo Pangaji
+ * 
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+.my-container {
+    width: 100%;
+    height: auto;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    align-items: center !important;
+}
+
+.todo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--card-background-color);
+    width: 80%;
+}
+
+.todo-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--card-sectionning-background-color);
+    margin: 0.5rem;
+    padding: 0 3rem;
+    font-weight: 600;
+}
+
+
+.todo-box div {
+    font-size: 1.5rem;
+}
+
+.todo-box button {
+    background-color: var(--del-color);
+    border: hidden;
+    outline: none !important;
+    cursor: pointer;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 0 !important;
+}
+
+footer div {
+    color: var(--secondary);
+}
