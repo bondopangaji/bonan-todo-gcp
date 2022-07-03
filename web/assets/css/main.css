@@ -43,7 +43,7 @@
 
 
 .todo-box div {
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 
 .todo-box button {
@@ -51,7 +51,7 @@
     border: hidden;
     outline: none !important;
     cursor: pointer;
-    width: 3rem;
+    width: 5rem;
     height: 3rem;
     margin-bottom: 0 !important;
 }
