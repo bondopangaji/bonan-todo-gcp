@@ -117,13 +117,7 @@ async function getAll(individualDoc) {
 
   // Delete button
   let del = document.createElement("button");
-  del.setAttribute("id", "delBtn");
-
-  let i = document.createElement("i");
-  i.className = "fas fa-trash";
-
-  // Appending icon
-  del.appendChild(i);
+  del.appendChild(document.createTextNode("Delete"));
 
   parentDiv.appendChild(todoDiv);
   parentDiv.appendChild(del);
@@ -132,7 +126,7 @@ async function getAll(individualDoc) {
 
   // Remove todo event
   del.addEventListener("click", (e) => {
-    const id = e.target.parentElement.parentElement.getAttribute("data-id");
+    const id = e.target.parentElement.getAttribute("data-id");
     // Check if todo exist
     if (id === null && id === undefined) {
       console.log("Todo with id: " + id + " does not exist");
