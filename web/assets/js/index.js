@@ -29,7 +29,6 @@ loginForm.addEventListener("submit", (e) => {
       location = "main.jsp";
     })
     .catch((err) => {
-      const loginError = document.getElementById("loginError");
-      loginError.innerText = err.message;
+      console.log(err);
     });
 });
