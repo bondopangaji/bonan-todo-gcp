@@ -57,7 +57,7 @@
                 <h2>Get started with Bonan Todo!</h2>
             </hgroup>
             <form id="register-form">
-                <input type="email" name="name" placeholder="Name" aria-label="Name" required>
+                <input type="text" name="name" placeholder="Name" aria-label="Name" required>
                 <input type="email" name="email" placeholder="Email" aria-label="Email" required>
                 <input type="password" name="password" placeholder="Password" aria-label="Password" required>
                 <p> Have an account?
