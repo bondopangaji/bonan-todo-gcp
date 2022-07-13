@@ -1,60 +1,130 @@
 /**
  * Copyright (c) 2022 Bondo Pangaji
- * 
+ *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
-.my-container {
-    width: 100%;
-    height: auto;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 600;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0;
+    padding: 1rem;
+}
+
+.main{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+}
+
+
+.btn:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.cards_item {
+    display: flex;
+    padding: 1rem;
+}
+
+.card {
+    background: var(--card-background-color);
+    box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    overflow: hidden;
 }
 
-.container {
-    align-items: center !important;
+.card_content {
+    padding: 0 1rem 1rem 1rem;
 }
 
-.todo-container {
+.card_title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    margin: 0;
+}
+
+.card_text {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+    font-weight: 400;
+}
+
+.card_date {
+    font-size: 0.625rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+    font-weight: 400;
+}
+
+.modal-form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--card-background-color);
-    width: 80%;
+    padding: 1rem;
 }
 
-.todo-box {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--card-sectionning-background-color);
-    margin: 0.5rem;
-    padding: 0 3rem;
-    font-weight: 600;
-}
-
-
-.todo-box div {
-    font-size: 2rem;
-}
-
-.todo-box button {
-    background-color: var(--del-color);
-    border: hidden;
-    outline: none !important;
+.del-btn {
+    display: block;
+    align-self: end;
+    width: 1rem;
+    height: 1rem;
+    padding: 1rem;
+    margin: 0;
     cursor: pointer;
-    width: 5rem;
-    height: 3rem;
-    margin-bottom: 0 !important;
+    background-image: var(--icon-close);
+    background-position: center;
+    background-size: auto 1rem;
+    background-repeat: no-repeat;
+    opacity: .5;
+    transition: opacity var(--transition);
 }
+
+.fab {
+    display: block;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    text-decoration: none;
+    position: fixed;
+    right: 4rem;
+    bottom: 4rem;
+
+}
+
+.fab svg {
+    display: block;
+    vertical-align: middle;
+    margin: 0 auto;
+    text-align: center;
+}
+
+
 
 footer div {
     color: var(--secondary);

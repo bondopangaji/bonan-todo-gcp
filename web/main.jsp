@@ -7,7 +7,6 @@
 
 <!doctype html>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
 <html lang="en">
 
 <head>
@@ -25,7 +24,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 
-<body onload="loadbody();">
+<body onload="loadCurrentDate();">
 
 <!-- Nav -->
 <nav class="container-fluid">
@@ -51,21 +50,35 @@
     </ul>
 </nav><!-- ./ Nav -->
 
-<div class="my-container">
+<main class="main container">
+    <ul class="cards" id="cards">
+    </ul>
+</main>
 
-</div>
+<!-- Button to trigger the modal -->
+<button class="contrast fab"
+        data-target="modal-todo"
+        onClick="toggleModal(event)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+         viewBox="0 0 16 16">
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+    </svg>
+</button>
 
-<!-- Main -->
-<main class="container">
-    <form autocomplete="off" class="form-group" id="form">
-        <label for="todos">Todo</label>
-        <input type="text" placeholder="Type here" class="form-control" id="todos" required/>
-        <!-- Button -->
-        <button type="submit">Add Todo</button>
-    </form>
-    <!-- todos container -->
-    <div class="container todo-container" id="todo-container"></div>
-</main><!-- ./ Main -->
+<!-- Modal -->
+<dialog id="modal-todo">
+    <article>
+        <form autocomplete="off" class="form-group modal-form" id="form" href="#close" aria-label="Close" data-target="modal-todo" onsubmit="toggleModal(event)">
+            <a href="#close" aria-label="Close" class="del-btn" data-target="modal-todo"
+               onclick="toggleModal(event)"></a>
+            <label for="todo-title">Todo Title</label>
+            <input type="text" placeholder="Type here" class="form-control" id="todo-title" required/>
+            <label for="todo-description">Todo Description</label>
+            <textarea placeholder="Type here" class="form-control" id="todo-description" required></textarea>
+            <button type="submit">Add Todo</button>
+        </form>
+    </article>
+</dialog><!-- ./ Modal example -->
 
 <!-- Footer -->
 <footer class="container-fluid">
@@ -75,7 +88,7 @@
         <small id="month">month</small>
         <small id="year">year</small>
     </div>
-    <small> Developed by Bondo Pangaji & Husen Minan </small>
+    <small> Developed by Bondo Pangaji & Husen Minan</small>
 </footer><!-- ./ Footer -->
 
 <!-- Firebase App -->
@@ -85,10 +98,20 @@
 <script src="assets/vendor/firebase/firebase-auth.js"></script>
 <script src="assets/vendor/firebase/firebase-firestore.js"></script>
 
-<!-- Minimal theme switcher -->
+<!-- Pico -->
 <script src="assets/vendor/pico/minimal.theme.switcher.js"></script>
+<script src="assets/vendor/pico/modal.js"></script>
 
+<!-- Current date -->
+<script src="assets/js/current-date.js"></script>
+
+<!-- Firebase config initialization -->
+<script src="assets/js/init.js"></script>
+
+<!-- App -->
 <script src="assets/js/main.js"></script>
+
+
 </body>
 
 </html>

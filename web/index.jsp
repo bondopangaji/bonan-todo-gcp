@@ -6,14 +6,12 @@ https://opensource.org/licenses/MIT
 -->
 
 <!doctype html>
-
-<%@ page contentType="text/html;charset=UTF-8" %>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bonan Todo • Login</title>
+    <title>Bon Todo • Login</title>
     <link rel="shortcut icon" href="assets/img/logo-sm.jpg">
 
     <!-- Pico.css -->
@@ -29,7 +27,7 @@ https://opensource.org/licenses/MIT
 <nav class="container-fluid">
     <ul>
         <li>
-            <a href="./" class="contrast" onclick="event.preventDefault()"><strong>Bonan Todo List</strong></a>
+            <a href="./" class="contrast" onclick="event.preventDefault()"><strong>Bon Todo List</strong></a>
         </li>
     </ul>
     <ul>
@@ -69,7 +67,7 @@ https://opensource.org/licenses/MIT
 
 <!-- Footer -->
 <footer class="container-fluid">
-    <small> Developed by Bondo Pangaji & Husen Minan </small>
+    <small>Developed by Bondo Pangaji & Husen Minan</small>
 </footer><!-- ./ Footer -->
 
 <!-- Minimal theme switcher -->
@@ -82,7 +80,12 @@ https://opensource.org/licenses/MIT
 <script src="assets/vendor/firebase/firebase-auth.js"></script>
 <script src="assets/vendor/firebase/firebase-firestore.js"></script>
 
+<!-- Firebase config initialization -->
+<script src="assets/js/init.js"></script>
+
+<!-- App -->
 <script src="assets/js/index.js"></script>
+
 </body>
 
 </html>

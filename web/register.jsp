@@ -7,8 +7,6 @@
 
 <!doctype html>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
-
 <html lang="en">
 
 <head>
@@ -85,6 +83,10 @@
 <script src="assets/vendor/firebase/firebase-auth.js"></script>
 <script src="assets/vendor/firebase/firebase-firestore.js"></script>
 
+<!-- Firebase config initialization -->
+<script src="assets/js/init.js"></script>
+
+<!-- App -->
 <script src="assets/js/register.js"></script>
 
 </body>

@@ -3,73 +3,72 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDFnPYq5nXT8EjQWaVMUOpqL9DkUUKudLI",
-  authDomain: "bonan-todo.firebaseapp.com",
-  projectId: "bonan-todo",
-  storageBucket: "bonan-todo.appspot.com",
-  messagingSenderId: "829743582947",
-  appId: "1:829743582947:web:c91c4d580574a1179bbfd6",
-  measurementId: "G-VM6HB4P5PH",
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-const fs = firebase.firestore();
-
-const spanDate = document.getElementById("date");
-const spanMonth = document.getElementById("month");
-const spanYear = document.getElementById("year");
-const spanWeekday = document.getElementById("weekday");
-
-const todoContainer = document.getElementById("todo-container");
-
-function loadbody() {
-  // console.log('body is loaded');
-  const date = new Date();
-  const month = date.toLocaleString("default", { month: "long" });
-  const myDate = date.getDate();
-  const year = date.getFullYear();
-  const day = date.toLocaleDateString("default", { weekday: "long" });
-
-  spanDate.innerText = myDate;
-  spanMonth.innerText = month;
-  spanYear.innerText = year;
-  spanWeekday.innerText = day;
-}
-
 /**
- * Check if user logged in
+ * =====================================================
+ * FIREBASE AUTHENTICATION
+ * =====================================================
  */
+
+// Check if user logged in
 auth.onAuthStateChanged((user) => {
   if (user) {
-    console.log("User logged in");
+    console.log("User successfully login")
   } else {
-    alert("Session expired or you've been logged out");
+    alert("Session expired or you've been logged out")
     location = "index.jsp";
   }
 });
 
-/**
- * Logout
- */
+// Logout
 function logout() {
   auth.signOut();
 }
 
 /**
- * Adding todo to Firetore
+ * =====================================================
+ * FIREBASE CRUD
+ * =====================================================
  */
 const form = document.getElementById("form");
 
-// Async add fn
-async function add(id, todos) {
-  // Check if id & todo exist
+// generate random UID fn
+function uid() {
+  let a = new Uint32Array(3)
+  window.crypto.getRandomValues(a)
+  return (performance
+    .now()
+    .toString(36)+Array.from(a).map(A => A.toString(36))
+    .join(""))
+    .replace(/\./g,"")
+}
+
+// Add to-do form listener
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const id = uid();
+  const todoTitle = form["todo-title"].value;
+  const todoDescription = form["todo-description"].value;
+  const createdAt = new Date().toLocaleString();
+  form.reset();
+  addTodo(id, todoTitle, todoDescription, createdAt)
+});
+
+/**
+ * Will add to-do to firebase
+ * @param id
+ * @param todoTitle
+ * @param todoDescription
+ * @param createdAt
+ * @returns {Promise<void>}
+ */
+async function addTodo(id, todoTitle, todoDescription, createdAt) {
+  // Check if id & to-do exist
   if (id === null && id === undefined) {
-    console.log("User id doesn't exist!");
-  } else if (todos === null && todos === undefined) {
-    console.log("Todo doesn't exist!");
+    alert("User id doesn't exist!")
+  } else if (todoTitle === null && todos === undefined) {
+    alert("Please fill todo-title");
+  } else if (todoDescription === null && todos === undefined) {
+    alert("Please fill todo-description");
   } else {
     await auth.onAuthStateChanged((user) => {
       if (user) {
@@ -77,66 +76,86 @@ async function add(id, todos) {
           .doc("_" + id)
           .set({
             id: "_" + id,
-            todos,
+            todoTitle,
+            todoDescription,
+            createdAt
           })
           .then(() => {
             console.log("Successfully added todo!");
           })
           .catch((err) => {
-            console.log(err.message);
+            alert(err.message);
           });
       }
     });
   }
 }
 
-// Form listener
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const todos = form["todos"].value;
-  // console.log(todos);
-  let id = Math.floor(Math.random() * 16);
-  form.reset();
-  add(id, todos);
-});
 
-/**
- * Render todos fn
- */
+// to-do container
+const todoContainer = document.getElementById("cards")
+
+// Render to-do
 async function getAll(individualDoc) {
-  // Parent div
-  let parentDiv = document.createElement("div");
 
-  parentDiv.className = "container todo-box";
-  parentDiv.setAttribute("data-id", individualDoc.id);
+  // Parent element
+  const parentEl = document.createElement("li");
 
-  // Todo div
-  let todoDiv = document.createElement("div");
+  parentEl.className = "cards_item";
+  parentEl.setAttribute("data-id", individualDoc.id);
 
-  todoDiv.textContent = await individualDoc.data().todos;
+  // Card
+  const card = document.createElement("div");
+  card.className = "card";
+
+  // Card Content
+  const cardContent = document.createElement("div");
+  cardContent.className = "card_content";
+
+  // Card title
+  const cardTitle = document.createElement("h2")
+  cardTitle.className = "card_title";
+  cardTitle.textContent = await individualDoc.data().todoTitle;
+
+  // Card description
+  const cardDescription = document.createElement("p")
+  cardDescription.className = "card_text";
+  cardDescription.textContent = await individualDoc.data().todoDescription;
+
+  // Card date
+  const cardDate = document.createElement("small")
+  cardDate.className = "card_date";
+  cardDate.textContent = await individualDoc.data().createdAt;
 
   // Delete button
-  let del = document.createElement("button");
-  del.appendChild(document.createTextNode("Delete"));
+  let delBtn = document.createElement("a");
+  delBtn.className = "del-btn";
+  // delBtn.appendChild(document.createTextNode("x"));
 
-  parentDiv.appendChild(todoDiv);
-  parentDiv.appendChild(del);
 
-  todoContainer.appendChild(parentDiv);
+  card.appendChild(delBtn);
+  cardContent.appendChild(cardTitle);
+  cardContent.appendChild(cardDescription);
+  cardContent.appendChild(cardDate);
+  card.appendChild(cardContent);
 
-  // Remove todo event
-  del.addEventListener("click", (e) => {
-    const id = e.target.parentElement.getAttribute("data-id");
-    // Check if todo exist
+  parentEl.appendChild(card);
+
+  todoContainer.appendChild(parentEl);
+
+  // Remove to-do event
+  delBtn.addEventListener("click", (e) => {
+    const id = e.target.parentElement.parentElement.getAttribute("data-id");
+    // Check if to-do exist
     if (id === null && id === undefined) {
-      console.log("Todo with id: " + id + " does not exist");
+      alert("Todo with id: " + id + " does not exist");
     } else {
       remove(id);
     }
   });
 }
 
-// Remove todo fn
+// Remove to-do fn
 async function remove(id) {
   await auth.onAuthStateChanged((user) => {
     if (user) {
